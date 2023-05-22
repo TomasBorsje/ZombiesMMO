@@ -1,0 +1,11 @@
+name: ZombieMMO
+version: 0.0.1
+main: tomasborsje.plugin.zombiemmo.ZombieMMOPlugin
+author: Tomas Borsje
+api-version: 1.19
+
+commands:
+  test:
+    description: ZombieMMO test command.
+    usage: /<command>
+    permission: zombiemmo.admin
