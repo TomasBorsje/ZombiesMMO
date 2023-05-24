@@ -1,16 +1,12 @@
 package tomasborsje.plugin.zombiemmo.items;
 
-import net.minecraft.network.protocol.game.PacketPlayOutExplosion;
-import net.minecraft.world.phys.Vec3D;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_19_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import tomasborsje.plugin.zombiemmo.ZombieMMOPlugin;
-import tomasborsje.plugin.zombiemmo.nms.PacketHelper;
 import tomasborsje.plugin.zombiemmo.registry.ItemType;
 
 import java.util.ArrayList;
@@ -57,11 +53,10 @@ public class MakeshiftBandageItem extends CustomItem {
         Player player = event.getPlayer();
         World world = player.getWorld();
 
-        // Play sound
+        // Play sounds with delay
         player.playSound(player, Sound.BLOCK_WOOL_PLACE, 1.5f, 0.2f);
         Bukkit.getScheduler().runTaskLater(ZombieMMOPlugin.Plugin, () -> player.playSound(player, Sound.BLOCK_WOOL_PLACE, 1.3f, 0.6f), 5);
         Bukkit.getScheduler().runTaskLater(ZombieMMOPlugin.Plugin, () -> player.playSound(player, Sound.BLOCK_WOOL_PLACE, 1.1f, 0.8f), 10);
-
 
         // Spawn particles
         Random random = new Random();
@@ -73,8 +68,6 @@ public class MakeshiftBandageItem extends CustomItem {
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 15, 1, false, false));
         // Send chat message
         player.sendMessage(ChatColor.GREEN + "You used a makeshift bandage!");
-
-        PacketHelper.SendExplosion(player, player.getLocation(), 2.0f);
         // Reduce stack count
         itemStack.setAmount(itemStack.getAmount() - 1);
     }

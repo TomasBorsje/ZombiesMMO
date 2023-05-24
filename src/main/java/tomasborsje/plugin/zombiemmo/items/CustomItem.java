@@ -1,6 +1,6 @@
 package tomasborsje.plugin.zombiemmo.items;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundTag;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftItemStack;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -39,11 +39,12 @@ public abstract class CustomItem implements IHasId {
         // Mappings not set up yet so use Bukkit item for paper
         net.minecraft.world.item.ItemStack nmsStack = CraftItemStack.asNMSCopy(stack);
 
-        NBTTagCompound nbt = nmsStack.v();
+        CompoundTag nbt = nmsStack.getOrCreateTag();
+
         // Add ITEM_ID tag
-        nbt.a("ITEM_ID", this.getId());
+        nbt.putString("ITEM_ID", this.getId());
         // Set nbt to the nmsStack
-        nmsStack.c(nbt);
+        nmsStack.setTag(nbt);
 
         // Bring NMS stack back to spigot level
         stack = CraftItemStack.asBukkitCopy(nmsStack);

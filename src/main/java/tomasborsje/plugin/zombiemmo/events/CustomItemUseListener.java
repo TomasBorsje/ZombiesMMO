@@ -1,6 +1,6 @@
 package tomasborsje.plugin.zombiemmo.events;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundTag;
 import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftItemStack;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,8 +21,9 @@ public class CustomItemUseListener implements Listener {
         }
 
         ItemStack usedItem = interactEvent.getItem();
+
         // Get NBT if it exists
-        NBTTagCompound nbt = CraftItemStack.asNMSCopy(usedItem).u();
+        CompoundTag nbt = CraftItemStack.asNMSCopy(usedItem).getTag();
 
         // Don't handle vanilla items or items without NBT
         if(nbt == null) {
@@ -30,9 +31,13 @@ public class CustomItemUseListener implements Listener {
         }
 
         // Check if the item has our custom ITEM_ID NBT tag
-        if (nbt.e("ITEM_ID")) {
+        if (nbt.contains("ITEM_ID")) {
             // Get our custom item id
-            String itemId = nbt.l("ITEM_ID");
+            String itemId = nbt.getString("ITEM_ID");
+
+            // If invalid id, ignore
+            if(!ItemRegistry.ITEMS.hasKey(itemId)) { return; }
+
             // Get custom item from registry and apply the item's OnUse event
             CustomItem customItem = ItemRegistry.ITEMS.get(itemId);
             // If we can use the item, use it
