@@ -8,7 +8,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import tomasborsje.plugin.zombiemmo.items.CustomItem;
-import tomasborsje.plugin.zombiemmo.items.MakeshiftBandageItem;
 import tomasborsje.plugin.zombiemmo.registry.ItemRegistry;
 
 public class CustomItemUseListener implements Listener {
@@ -37,8 +36,8 @@ public class CustomItemUseListener implements Listener {
             // Get custom item from registry and apply the item's OnUse event
             CustomItem customItem = ItemRegistry.ITEMS.get(itemId);
             // If we can use the item, use it
-            if(customItem.CanUse(usedItem, interactEvent)) {
-                customItem.OnUse(usedItem, interactEvent);
+            if(customItem.canUse(usedItem, interactEvent)) {
+                customItem.onUse(usedItem, interactEvent);
             }
         }
     }

@@ -5,7 +5,7 @@ author: Tomas Borsje
 api-version: 1.19
 
 commands:
-  test:
-    description: ZombieMMO test command.
-    usage: /<command>
+  zombiesgive:
+    description: Gives ZombiesMMO items.
+    usage: /<command> <item_id>
     permission: zombiemmo.admin

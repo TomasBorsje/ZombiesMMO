@@ -1,13 +1,12 @@
 package tomasborsje.plugin.zombiemmo.registry;
 
-import java.util.Dictionary;
 import java.util.HashMap;
 
 /**
  * Registry class that allows for registration and retrieval of type T by string id.
  * @param <T> The class to store in this registry
  */
-public class Registry<T> {
+public class Registry<T extends IHasId> {
     private final HashMap<String, T> registryDictionary = new HashMap<String, T>();
 
     public Registry() {
@@ -16,15 +15,16 @@ public class Registry<T> {
 
     /**
      * Register an item into this registry.
-     * @param id The id to register the item with
      * @param item The item to register
      * @return The registered item
      */
-    public T register(String id, T item) {
+    public T register(T item) {
+        String id = item.getId();
         if(registryDictionary.containsKey(id)) {
             throw new IllegalArgumentException("Registry already contains an item for id "+id);
         }
-        return registryDictionary.put(id, item);
+        registryDictionary.put(id, item);
+        return item;
     }
 
     /**
@@ -37,6 +37,15 @@ public class Registry<T> {
             throw new IllegalArgumentException("No item registered for id "+id);
         }
         return registryDictionary.get(id);
+    }
+
+    /**
+     * Returns whether a key is registered in the registry.
+     * @param id The key to check for
+     * @return Whether the key is registered
+     */
+    public boolean hasKey(String id) {
+        return registryDictionary.containsKey(id);
     }
 
 }

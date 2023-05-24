@@ -1,56 +1,68 @@
 package tomasborsje.plugin.zombiemmo.items;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.protocol.game.PacketPlayOutExplosion;
+import net.minecraft.world.phys.Vec3D;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_19_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import tomasborsje.plugin.zombiemmo.ZombieMMOPlugin;
+import tomasborsje.plugin.zombiemmo.nms.PacketHelper;
+import tomasborsje.plugin.zombiemmo.registry.ItemType;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class MakeshiftBandageItem implements CustomItem {
-    public static final String ID = "MAKESHIFT_BANDAGE";
-    private static List<String> LORE = Arrays.asList(ChatColor.GRAY + "Applies " + ChatColor.RED + ChatColor.BOLD + "Regeneration II" +
-                    ChatColor.RESET + ChatColor.GRAY + " for " + ChatColor.WHITE + "15 seconds.",
-            ChatColor.DARK_GRAY + "A makeshift bandage torn off some old clothes.");
-
+public class MakeshiftBandageItem extends CustomItem {
     @Override
-    public ItemStack Create() {
-        ItemStack stack = new ItemStack(Material.PAPER);
-
-        // Mappings not set up yet so use Bukkit item for paper
-        net.minecraft.world.item.ItemStack nmsStack = CraftItemStack.asNMSCopy(stack);
-
-        NBTTagCompound nbt = nmsStack.v();
-        // Add ITEM_ID tag
-        nbt.a("ITEM_ID", ID);
-        // Set nbt to the nmsStack
-        nmsStack.c(nbt);
-
-        // Bring NMS stack back to spigot level
-        stack = CraftItemStack.asBukkitCopy(nmsStack);
-
-        ItemMeta meta = stack.getItemMeta();
-        meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Makeshift Bandage");
-        meta.setLore(LORE);
-        stack.setItemMeta(meta);
-
-        return stack;
+    public String getId() {
+        return "MAKESHIFT_BANDAGE";
     }
 
     @Override
-    public void OnUse(ItemStack itemStack, PlayerInteractEvent event) {
+    public String getDisplayName() {
+        return "Makeshift Bandage";
+    }
+
+    @Override
+    public List<String> getDescription() {
+        return new ArrayList<String>(Arrays.asList(
+                ChatColor.GRAY + "Applies " + ChatColor.RED + ChatColor.BOLD + "Regeneration II" + ChatColor.RESET + ChatColor.GRAY + " for " + ChatColor.WHITE + "15 seconds.",
+                "",
+                ChatColor.DARK_GRAY + "A makeshift bandage torn off some old clothes."));
+    }
+
+    @Override
+    public Material getBaseMaterial() {
+        return Material.PAPER;
+    }
+
+    @Override
+    public Rarity getRarity() {
+        return Rarity.UNCOMMON;
+    }
+
+    @Override
+    public ItemType getType() {
+        return ItemType.MEDICINE;
+    }
+
+    @Override
+    public void onUse(ItemStack itemStack, PlayerInteractEvent event) {
         Player player = event.getPlayer();
         World world = player.getWorld();
 
         // Play sound
-        player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1.5f);
+        player.playSound(player, Sound.BLOCK_WOOL_PLACE, 1.5f, 0.2f);
+        Bukkit.getScheduler().runTaskLater(ZombieMMOPlugin.Plugin, () -> player.playSound(player, Sound.BLOCK_WOOL_PLACE, 1.3f, 0.6f), 5);
+        Bukkit.getScheduler().runTaskLater(ZombieMMOPlugin.Plugin, () -> player.playSound(player, Sound.BLOCK_WOOL_PLACE, 1.1f, 0.8f), 10);
+
+
         // Spawn particles
         Random random = new Random();
         for (int i = 0; i < 25; i++) {
@@ -58,15 +70,17 @@ public class MakeshiftBandageItem implements CustomItem {
             world.spawnParticle(Particle.VILLAGER_HAPPY, particleLocation, 1);
         }
         // Apply potion effect
-        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 10, 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 15, 1, false, false));
         // Send chat message
         player.sendMessage(ChatColor.GREEN + "You used a makeshift bandage!");
+
+        PacketHelper.SendExplosion(player, player.getLocation(), 2.0f);
         // Reduce stack count
         itemStack.setAmount(itemStack.getAmount() - 1);
     }
 
     @Override
-    public boolean CanUse(ItemStack itemStack, PlayerInteractEvent event) {
+    public boolean canUse(ItemStack itemStack, PlayerInteractEvent event) {
         return true;
     }
 }

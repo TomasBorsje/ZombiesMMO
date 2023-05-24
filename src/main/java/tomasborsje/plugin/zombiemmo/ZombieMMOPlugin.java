@@ -1,8 +1,9 @@
 package tomasborsje.plugin.zombiemmo;
 
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import tomasborsje.plugin.zombiemmo.commands.TestCommand;
+import tomasborsje.plugin.zombiemmo.commands.ZombiesGiveCommand;
 import tomasborsje.plugin.zombiemmo.events.CustomItemUseListener;
 
 import java.util.Random;
@@ -12,11 +13,13 @@ import java.util.Random;
  */
 public class ZombieMMOPlugin extends JavaPlugin {
     public static Random RANDOM = new Random();
+    public static Plugin Plugin = null;
     @Override
     public void onEnable() {
         Bukkit.getLogger().info("Enabled ZombieMMO plugin.");
+        Plugin = this;
         // Command registration
-        this.getCommand("test").setExecutor(new TestCommand());
+        this.getCommand("zombiesgive").setExecutor(new ZombiesGiveCommand());
 
         // Custom item use listener
         this.getServer().getPluginManager().registerEvents(new CustomItemUseListener(), this);
