@@ -1,4 +1,4 @@
-package tomasborsje.plugin.zombiemmo.items;
+package tomasborsje.plugin.zombiesmmo.items;
 
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -6,8 +6,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import tomasborsje.plugin.zombiemmo.ZombieMMOPlugin;
-import tomasborsje.plugin.zombiemmo.registry.ItemType;
+import tomasborsje.plugin.zombiesmmo.ZombiesMMO;
+import tomasborsje.plugin.zombiesmmo.registry.ItemType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,8 +55,8 @@ public class MakeshiftBandageItem extends CustomItem {
 
         // Play sounds with delay
         player.playSound(player, Sound.BLOCK_WOOL_PLACE, 1.5f, 0.2f);
-        Bukkit.getScheduler().runTaskLater(ZombieMMOPlugin.Plugin, () -> player.playSound(player, Sound.BLOCK_WOOL_PLACE, 1.3f, 0.6f), 5);
-        Bukkit.getScheduler().runTaskLater(ZombieMMOPlugin.Plugin, () -> player.playSound(player, Sound.BLOCK_WOOL_PLACE, 1.1f, 0.8f), 10);
+        Bukkit.getScheduler().runTaskLater(ZombiesMMO.Plugin, () -> player.playSound(player, Sound.BLOCK_WOOL_PLACE, 1.3f, 0.6f), 5);
+        Bukkit.getScheduler().runTaskLater(ZombiesMMO.Plugin, () -> player.playSound(player, Sound.BLOCK_WOOL_PLACE, 1.1f, 0.8f), 10);
 
         // Spawn particles
         Random random = new Random();

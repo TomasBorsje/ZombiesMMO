@@ -1,4 +1,4 @@
-package tomasborsje.plugin.zombiemmo.nms;
+package tomasborsje.plugin.zombiesmmo.nms;
 
 import net.minecraft.network.protocol.game.ClientboundExplodePacket;
 import net.minecraft.world.phys.Vec3;

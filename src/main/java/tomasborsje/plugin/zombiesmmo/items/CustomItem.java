@@ -1,4 +1,4 @@
-package tomasborsje.plugin.zombiemmo.items;
+package tomasborsje.plugin.zombiesmmo.items;
 
 import net.minecraft.nbt.CompoundTag;
 import org.bukkit.Material;
@@ -6,9 +6,9 @@ import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftItemStack;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import tomasborsje.plugin.zombiemmo.registry.IHasId;
-import tomasborsje.plugin.zombiemmo.registry.ItemType;
-import tomasborsje.plugin.zombiemmo.registry.TooltipLoreHelper;
+import tomasborsje.plugin.zombiesmmo.registry.IHasId;
+import tomasborsje.plugin.zombiesmmo.registry.ItemType;
+import tomasborsje.plugin.zombiesmmo.registry.TooltipLoreHelper;
 
 import java.util.Collections;
 import java.util.List;

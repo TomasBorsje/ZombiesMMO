@@ -1,4 +1,4 @@
-package tomasborsje.plugin.zombiemmo.items;
+package tomasborsje.plugin.zombiesmmo.items;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -8,7 +8,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import tomasborsje.plugin.zombiemmo.registry.ItemType;
+import tomasborsje.plugin.zombiesmmo.registry.ItemType;
 
 import java.util.ArrayList;
 import java.util.Arrays;

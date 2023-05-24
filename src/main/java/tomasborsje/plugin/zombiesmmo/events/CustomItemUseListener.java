@@ -1,4 +1,4 @@
-package tomasborsje.plugin.zombiemmo.events;
+package tomasborsje.plugin.zombiesmmo.events;
 
 import net.minecraft.nbt.CompoundTag;
 import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftItemStack;
@@ -7,8 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import tomasborsje.plugin.zombiemmo.items.CustomItem;
-import tomasborsje.plugin.zombiemmo.registry.ItemRegistry;
+import tomasborsje.plugin.zombiesmmo.items.CustomItem;
+import tomasborsje.plugin.zombiesmmo.registry.ItemRegistry;
 
 public class CustomItemUseListener implements Listener {
 

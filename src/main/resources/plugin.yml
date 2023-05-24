@@ -1,6 +1,6 @@
-name: ZombieMMO
-version: 0.0.1
-main: tomasborsje.plugin.zombiemmo.ZombieMMOPlugin
+name: ZombiesMMO
+version: 0.0.3
+main: tomasborsje.plugin.zombiesmmo.ZombiesMMO
 author: Tomas Borsje
 api-version: 1.19
 
@@ -8,4 +8,4 @@ commands:
   zombiesgive:
     description: Gives ZombiesMMO items.
     usage: /<command> <item_id>
-    permission: zombiemmo.admin
+    permission: zombiesmmo.admin

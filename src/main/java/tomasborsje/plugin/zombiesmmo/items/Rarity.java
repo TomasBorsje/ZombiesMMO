@@ -1,4 +1,4 @@
-package tomasborsje.plugin.zombiemmo.items;
+package tomasborsje.plugin.zombiesmmo.items;
 
 public enum Rarity {
     SCRAP,

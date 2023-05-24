@@ -1,4 +1,4 @@
-package tomasborsje.plugin.zombiemmo.registry;
+package tomasborsje.plugin.zombiesmmo.registry;
 
 public enum ItemType {
     MEDICINE,

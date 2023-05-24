@@ -1,8 +1,8 @@
-package tomasborsje.plugin.zombiemmo.registry;
+package tomasborsje.plugin.zombiesmmo.registry;
 
-import tomasborsje.plugin.zombiemmo.items.BaseballBatItem;
-import tomasborsje.plugin.zombiemmo.items.MakeshiftBandageItem;
-import tomasborsje.plugin.zombiemmo.items.CustomItem;
+import tomasborsje.plugin.zombiesmmo.items.BaseballBatItem;
+import tomasborsje.plugin.zombiesmmo.items.MakeshiftBandageItem;
+import tomasborsje.plugin.zombiesmmo.items.CustomItem;
 
 public class ItemRegistry {
     public static final Registry<CustomItem> ITEMS = new Registry<>();

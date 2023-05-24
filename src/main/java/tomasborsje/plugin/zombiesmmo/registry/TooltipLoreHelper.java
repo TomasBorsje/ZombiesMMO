@@ -1,8 +1,8 @@
-package tomasborsje.plugin.zombiemmo.registry;
+package tomasborsje.plugin.zombiesmmo.registry;
 
 import org.bukkit.ChatColor;
-import tomasborsje.plugin.zombiemmo.items.CustomItem;
-import tomasborsje.plugin.zombiemmo.items.Rarity;
+import tomasborsje.plugin.zombiesmmo.items.CustomItem;
+import tomasborsje.plugin.zombiesmmo.items.Rarity;
 
 import java.util.List;
 
