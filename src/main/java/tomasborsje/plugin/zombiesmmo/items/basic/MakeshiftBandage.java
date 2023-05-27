@@ -1,4 +1,4 @@
-package tomasborsje.plugin.zombiesmmo.items;
+package tomasborsje.plugin.zombiesmmo.items.basic;
 
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -7,16 +7,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import tomasborsje.plugin.zombiesmmo.ZombiesMMO;
+import tomasborsje.plugin.zombiesmmo.items.core.CustomItem;
+import tomasborsje.plugin.zombiesmmo.items.core.Rarity;
 import tomasborsje.plugin.zombiesmmo.registry.ItemType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
-public class MakeshiftBandageItem extends CustomItem {
+public class MakeshiftBandage extends CustomItem {
     @Override
-    public String getId() {
+    public String getCustomId() {
         return "MAKESHIFT_BANDAGE";
     }
 
@@ -26,11 +25,10 @@ public class MakeshiftBandageItem extends CustomItem {
     }
 
     @Override
-    public List<String> getDescription() {
-        return new ArrayList<String>(Arrays.asList(
-                ChatColor.GRAY + "Applies " + ChatColor.RED + ChatColor.BOLD + "Regeneration II" + ChatColor.RESET + ChatColor.GRAY + " for " + ChatColor.WHITE + "15 seconds.",
-                "",
-                ChatColor.DARK_GRAY + "A makeshift bandage torn off some old clothes."));
+    public String getLoreDescription() {
+        return ChatColor.GRAY + "Applies " + ChatColor.RED + ChatColor.BOLD + "Regeneration II" + ChatColor.RESET + ChatColor.GRAY + " for " + ChatColor.WHITE + "15 seconds.\n"+
+                "\n"+
+                ChatColor.DARK_GRAY + "A makeshift bandage torn off some old clothes.";
     }
 
     @Override
@@ -49,7 +47,7 @@ public class MakeshiftBandageItem extends CustomItem {
     }
 
     @Override
-    public void onUse(ItemStack itemStack, PlayerInteractEvent event) {
+    public void onRightClick(ItemStack itemStack, PlayerInteractEvent event) {
         Player player = event.getPlayer();
         World world = player.getWorld();
 
@@ -73,7 +71,7 @@ public class MakeshiftBandageItem extends CustomItem {
     }
 
     @Override
-    public boolean canUse(ItemStack itemStack, PlayerInteractEvent event) {
+    public boolean canRightClickUse(ItemStack itemStack, PlayerInteractEvent event) {
         return true;
     }
 }

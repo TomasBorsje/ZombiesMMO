@@ -9,3 +9,7 @@ commands:
     description: Gives ZombiesMMO items.
     usage: /<command> <item_id>
     permission: zombiesmmo.admin
+  zombiesspawn:
+    description: Spawns ZombiesMMO entities.
+    usage: /<command> <entity_id>
+    permission: zombiesmmo.admin

@@ -1,15 +1,12 @@
-package tomasborsje.plugin.zombiesmmo.registry;
+package tomasborsje.plugin.zombiesmmo.util;
 
 import org.bukkit.ChatColor;
-import tomasborsje.plugin.zombiesmmo.items.CustomItem;
-import tomasborsje.plugin.zombiesmmo.items.Rarity;
-
-import java.util.List;
+import tomasborsje.plugin.zombiesmmo.items.core.CustomItem;
+import tomasborsje.plugin.zombiesmmo.items.core.Rarity;
 
 public class TooltipLoreHelper {
-    public static void AppendItemQualityTooltip(CustomItem item, List<String> tooltip) {
-        tooltip.add("");
-        tooltip.add(GetItemRarityColor(item.getRarity())+""+ChatColor.BOLD+"-- " + item.getRarity().toString() + " " + item.getType().toString() + " --");
+    public static String GetItemQualityTooltip(CustomItem item) {
+        return GetItemRarityColor(item.getRarity())+""+ChatColor.BOLD+"-- " + item.getRarity().toString() + " " + item.getType().toString() + " --";
     }
     public static ChatColor GetItemRarityColor(Rarity rarity) {
         switch(rarity) {

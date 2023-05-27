@@ -7,5 +7,6 @@ public enum ItemType {
     WEAPON,
     GUN,
     ARMOUR,
+    AMMO,
     UNKNOWN
 }

@@ -51,6 +51,25 @@
                     <outputDirectory>C:\SpigotPlugins\SpigotTestServer\plugins</outputDirectory>
                 </configuration>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.codehaus.mojo</groupId>-->
+<!--                <artifactId>exec-maven-plugin</artifactId>-->
+<!--                <version>1.5.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>prepare-package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>exec</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <async>true</async>-->
+<!--                            <outputFile>serverLogs.log</outputFile>-->
+<!--                            <executable>C:\SpigotPlugins\SpigotTestServer\restart.bat</executable>-->
+<!--                            <workingDirectory>C:\SpigotPlugins\SpigotTestServer</workingDirectory>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 

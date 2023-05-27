@@ -1,16 +1,18 @@
-package tomasborsje.plugin.zombiesmmo.items;
+package tomasborsje.plugin.zombiesmmo.items.core;
 
 import net.minecraft.nbt.CompoundTag;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftItemStack;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import tomasborsje.plugin.zombiesmmo.registry.IHasId;
 import tomasborsje.plugin.zombiesmmo.registry.ItemType;
-import tomasborsje.plugin.zombiesmmo.registry.TooltipLoreHelper;
+import tomasborsje.plugin.zombiesmmo.util.TooltipLoreHelper;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CustomItem implements IHasId {
@@ -20,11 +22,11 @@ public abstract class CustomItem implements IHasId {
     public ItemType getType() {
         return ItemType.UNKNOWN;
     }
-    public String getId() {
+    public String getCustomId() {
         return "EMPTY";
     }
-    public List<String> getDescription() {
-        return Collections.singletonList("Unknown");
+    public String getLoreDescription() {
+        return "";
     }
     public String getDisplayName() {
         return "Unknown Item";
@@ -42,7 +44,7 @@ public abstract class CustomItem implements IHasId {
         CompoundTag nbt = nmsStack.getOrCreateTag();
 
         // Add ITEM_ID tag
-        nbt.putString("ITEM_ID", this.getId());
+        nbt.putString("ITEM_ID", this.getCustomId());
         // Set nbt to the nmsStack
         nmsStack.setTag(nbt);
 
@@ -51,14 +53,21 @@ public abstract class CustomItem implements IHasId {
 
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(TooltipLoreHelper.GetItemRarityColor(getRarity()) + getDisplayName());
-        List<String> lore = getDescription();
-        TooltipLoreHelper.AppendItemQualityTooltip(this, lore);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        List<String> lore = new ArrayList<String>();
+        if(!getLoreDescription().equals("")) {
+            lore.add(ChatColor.DARK_GRAY + getLoreDescription());
+            lore.add("");
+        }
+        lore.add(TooltipLoreHelper.GetItemQualityTooltip(this));
         meta.setLore(lore);
         stack.setItemMeta(meta);
 
         return stack;
     }
 
-    public void onUse(ItemStack itemStack, PlayerInteractEvent event) { };
-    public boolean canUse(ItemStack itemStack, PlayerInteractEvent event) { return false; };
+    public void onRightClick(ItemStack itemStack, PlayerInteractEvent event) { };
+    public boolean canRightClickUse(ItemStack itemStack, PlayerInteractEvent event) { return false; };
+    public void onLeftClick(ItemStack itemStack, PlayerInteractEvent event) { };
+    public boolean canLeftClickUse(ItemStack itemStack, PlayerInteractEvent event) { return false; };
 }
