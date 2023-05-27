@@ -224,6 +224,6 @@ public abstract class BaseGun extends CustomItem {
 
     @Override
     public boolean canLeftClickUse(ItemStack itemStack, PlayerInteractEvent event) {
-        return !ZombiesMMO.serverTick.IsOnCooldown(event.getPlayer().getName());
+        return true;
     }
 }
