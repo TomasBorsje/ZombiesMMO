@@ -1,15 +1,20 @@
 package tomasborsje.plugin.zombiesmmo;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Server;
+import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
 import tomasborsje.plugin.zombiesmmo.commands.ZombiesGiveCommand;
 import tomasborsje.plugin.zombiesmmo.commands.ZombiesSpawnCommand;
+import tomasborsje.plugin.zombiesmmo.commands.ZombiesSpawnNPCCommand;
+import tomasborsje.plugin.zombiesmmo.entities.FakePlayer;
 import tomasborsje.plugin.zombiesmmo.events.*;
+import tomasborsje.plugin.zombiesmmo.inventories.InventoryManager;
+import tomasborsje.plugin.zombiesmmo.nms.FakePlayerUtils;
+import tomasborsje.plugin.zombiesmmo.registry.NPCRegistry;
 
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -33,11 +38,16 @@ public class ZombiesMMO extends JavaPlugin {
         // Setup tick loop task
         serverTick = new ServerTickListener(this);
         serverTick.runTaskTimer(this,0,1);
+
+        // Load map inventories
+        InventoryManager.LoadInventories();
+
     }
 
     void registerCommands() {
         this.getCommand("zombiesgive").setExecutor(new ZombiesGiveCommand());
         this.getCommand("zombiesspawn").setExecutor(new ZombiesSpawnCommand());
+        this.getCommand("zombiesspawnnpc").setExecutor(new ZombiesSpawnNPCCommand());
     }
 
     void registerListeners() {
@@ -47,6 +57,10 @@ public class ZombiesMMO extends JavaPlugin {
         pluginManager.registerEvents(new ArmorStandManipulateListener(), this);
         pluginManager.registerEvents(new EntityCombustListener(), this);
         pluginManager.registerEvents(new EntityDeathListener(), this);
+        pluginManager.registerEvents(new PlayerJoinListener(), this);
+        pluginManager.registerEvents(new WorldLoadListener(), this);
+        pluginManager.registerEvents(new PlayerInteractEntityListener(), this);
+        pluginManager.registerEvents(new InventoryOpenListener(), this);
     }
     @Override
     public void onDisable() {

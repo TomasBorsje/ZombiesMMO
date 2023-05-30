@@ -3,17 +3,18 @@ package tomasborsje.plugin.zombiesmmo.registry;
 import org.bukkit.Location;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * Registry class that allows for registration and retrieval of type T by string id.
  * @param <T> The class to store in this registry
  */
-public class SupplierRegistry<T extends IHasId> {
+public class FunctionRegistry<T extends IHasId> {
     private final HashMap<String, Function<Location, T>> registryDictionary = new HashMap<>();
 
-    public SupplierRegistry() {
+    public FunctionRegistry() {
 
     }
 
@@ -40,6 +41,10 @@ public class SupplierRegistry<T extends IHasId> {
             throw new IllegalArgumentException("No item registered for id "+id);
         }
         return registryDictionary.get(id);
+    }
+
+    public Set<Map.Entry<String, Function<Location, T>>> getEntries() {
+        return registryDictionary.entrySet();
     }
 
     /**

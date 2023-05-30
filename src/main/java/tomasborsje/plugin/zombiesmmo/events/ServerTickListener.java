@@ -2,19 +2,25 @@ package tomasborsje.plugin.zombiesmmo.events;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
+import org.bukkit.craftbukkit.v1_19_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_19_R3.boss.CraftBossBar;
 import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftItemStack;
 import org.bukkit.craftbukkit.v1_19_R3.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import tomasborsje.plugin.zombiesmmo.entities.FakePlayer;
+import tomasborsje.plugin.zombiesmmo.nms.FakePlayerUtils;
+import tomasborsje.plugin.zombiesmmo.registry.NPCRegistry;
 
 import java.util.Collection;
 import java.util.Dictionary;
@@ -28,6 +34,9 @@ public class ServerTickListener extends BukkitRunnable {
     public static int DAY_LENGTH = 24000;
     BossBar bar;
     private int ticks = 0;
+    private boolean npcsLoaded = false;
+
+    private NPCTickHandler npcTickHandler = new NPCTickHandler();
 
     HashMap<String, Integer> playerCooldowns = new HashMap<String, Integer>();
 
@@ -46,6 +55,10 @@ public class ServerTickListener extends BukkitRunnable {
         World world = plugin.getServer().getWorlds().get(0);
         if(world == null) {return;}
 
+        if(!npcsLoaded) {
+            loadNPCs(world);
+        }
+
         // Check if we switched from day to night or vice versa
         boolean newIsNight = isNight(world);
         if(IsNight && !newIsNight) {
@@ -57,6 +70,9 @@ public class ServerTickListener extends BukkitRunnable {
             Bukkit.broadcastMessage(ChatColor.DARK_GRAY+"☁ "+ChatColor.GRAY+ChatColor.BOLD+"Night has begun...");
         }
         IsNight = newIsNight;
+
+        // Tick NPCs
+        npcTickHandler.tick(world);
 
         // Reduce player cooldowns
         for(var pair : playerCooldowns.entrySet()) {
@@ -75,6 +91,16 @@ public class ServerTickListener extends BukkitRunnable {
         }
         updateBossBar(world);
         updateAmmoDisplay();
+    }
+
+    private void loadNPCs(World world) {
+        ServerLevel serverLevel = ((CraftWorld)world).getHandle();
+        for(var entry : NPCRegistry.NPCs.getEntries()) {
+            FakePlayer npc = entry.getValue().apply(serverLevel);
+            Bukkit.broadcastMessage("Loaded "+npc.getCustomId());
+            FakePlayerUtils.SpawnFakePlayer(npc, world);
+        }
+        npcsLoaded = true;
     }
 
     /**

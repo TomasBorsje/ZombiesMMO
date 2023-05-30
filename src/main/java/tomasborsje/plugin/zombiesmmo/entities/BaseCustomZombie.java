@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_19_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_19_R3.util.CraftChatMessage;
+import tomasborsje.plugin.zombiesmmo.entities.goals.SilentZombieAttackGoal;
 import tomasborsje.plugin.zombiesmmo.events.ServerTickListener;
 import tomasborsje.plugin.zombiesmmo.nms.HologramSpawner;
 import tomasborsje.plugin.zombiesmmo.registry.IHasId;
@@ -33,12 +34,13 @@ public class BaseCustomZombie extends Zombie implements IHasId {
         this.setCustomNameVisible(true);
         this.setCustomName(CraftChatMessage.fromJSONOrString(ChatColor.GREEN + "[Lv10]"+ChatColor.WHITE+" Zombie"));
         healthDisplay = HologramSpawner.SpawnHologram(loc.add(0, HEALTH_BAR_OFFSET, 0), EntityUtils.GetHealthBarMessage(this));
+        this.setSilent(true);
     }
     
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new ZombieAttackGoal(this, 1, false));
+        this.goalSelector.addGoal(0, new SilentZombieAttackGoal(this, 1, false));
     }
 
     @Override

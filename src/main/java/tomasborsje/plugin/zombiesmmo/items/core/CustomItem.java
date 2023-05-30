@@ -35,7 +35,7 @@ public abstract class CustomItem implements IHasId {
     public Material getBaseMaterial() {
         return Material.BARRIER;
     }
-    public ItemStack createStack() {
+    public ItemStack createStack(int count) {
         ItemStack stack = new ItemStack(getBaseMaterial());
 
         // Mappings not set up yet so use Bukkit item for paper
@@ -62,8 +62,11 @@ public abstract class CustomItem implements IHasId {
         lore.add(TooltipLoreHelper.GetItemQualityTooltip(this));
         meta.setLore(lore);
         stack.setItemMeta(meta);
-
+        stack.setAmount(count);
         return stack;
+    }
+    public ItemStack createStack() {
+        return createStack(1);
     }
 
     public void onRightClick(ItemStack itemStack, PlayerInteractEvent event) { };

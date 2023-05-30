@@ -133,7 +133,7 @@ public abstract class BaseGun extends CustomItem {
 
             // If we hit 0 living entities, continue
             if(hitEntities.stream().noneMatch((entity) -> !(entity instanceof Player)
-            && !(entity instanceof ArmorStand) && entity instanceof LivingEntity)) { continue; }
+            && !(entity instanceof ArmorStand) && entity instanceof LivingEntity && !entity.isDead())) { continue; }
 
             // We've reached an entity
             LivingEntity hitEntity = (LivingEntity) hitEntities.iterator().next();

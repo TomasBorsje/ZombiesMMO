@@ -1,4 +1,4 @@
-name: ZombiesMMO
+name: ZombieMMO
 version: 0.0.3
 main: tomasborsje.plugin.zombiesmmo.ZombiesMMO
 author: Tomas Borsje
@@ -12,4 +12,8 @@ commands:
   zombiesspawn:
     description: Spawns ZombiesMMO entities.
     usage: /<command> <entity_id>
+    permission: zombiesmmo.admin
+  zombiesspawnnpc:
+    description: Spawns a ZombiesMMO NPC.
+    usage: /<command> <npc_id>
     permission: zombiesmmo.admin

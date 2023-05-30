@@ -10,6 +10,7 @@ import org.bukkit.craftbukkit.v1_19_R3.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import tomasborsje.plugin.zombiesmmo.entities.BaseCustomZombie;
+import tomasborsje.plugin.zombiesmmo.nms.FakePlayerUtils;
 import tomasborsje.plugin.zombiesmmo.registry.ItemRegistry;
 
 public class ZombiesGiveCommand implements CommandExecutor {
